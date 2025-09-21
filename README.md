@@ -23,7 +23,8 @@
  1. Install **Anaconda Navigator** at https://www.anaconda.com/download
  2. Open **Jupyter notebook**
  3. Download and open _Ching_Data_Wrangling-PA4.ipynb_
- 4. Run the programs 
+ 4. Download the database _board2.xlsx_ in the same folder
+ 5. Run the programs 
 
 <a name="problems"></a>
 ## Sample Problem:
