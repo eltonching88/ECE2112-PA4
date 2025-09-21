@@ -210,8 +210,6 @@ plt.show()
 > The data shows that examinees from **Luzon** scored the highest average.
 </br>
 
-</br>
-
 <a name="author"></a>
 ## **Author** 
 - Name: Elton Ching
