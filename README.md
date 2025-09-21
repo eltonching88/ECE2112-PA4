@@ -86,7 +86,7 @@ df
 
 #### a. Instru = ["Name", "GEAS", "Electronics >70"]; "Track" is constant as "Instrumentation" and "Hometown" "Luzon" </br>
 
-**Step 3** Using `.loc`, I performed indexing and specified the rows to locate and the columns that will be displayed in the table. 
+**Step 3.** Using `.loc`, I performed indexing and specified the rows to locate and the columns that will be displayed in the table. 
 ``` python
 # Locate rows required and columns to display
 # Rows:    Track - Instrumentation, Hometown - Luzon, Electronics
@@ -111,14 +111,14 @@ Instru
 
 #### b.  Mindy = ["Name", "Track", "Electronics", "Average >= 55"]; "Hometown" is constant as "Mindanao" and "Gender" "Female"
 
-**Step 4** 
+**Step 4.** For the second table, I used `.mean` for all the subjects to get the average score and added it as a new column.
 ```python
 # Getting the average of the 4 subjects and adding a column "Average" in axis 1
 df["Average"] = df[ ["Math","Electronics","GEAS","Communication"] ].mean(axis=1)
 ```
 </br>
 
-**Step 5** 
+**Step 5** Again, I specified the rows to locate and the columns that will be displayed in the table. 
 ```python
 # Locate rows required and columns to display
 # Rows:    Hometown - Mindanao, Gender - Female, Average >= 55
@@ -136,8 +136,8 @@ Mindy
 
 |    | Name | Track            | Electronics | Average |
 |----|------|------------------|-------------|---------|
-| 1  | S2   | Communication    | 75          | 67.25   |
-| 2  | S3   | Instrumentation  | 74          | 72.75   |
+|  1 | S2   | Communication    | 75          | 67.25   |
+|  2 | S3   | Instrumentation  | 74          | 72.75   |
 | 14 | S15  | Microelectronics | 41          | 59.00   |
 | 16 | S17  | Microelectronics | 79          | 70.50   |
 | 19 | S20  | Communication    | 60          | 66.50   |
@@ -146,77 +146,69 @@ Mindy
 
 <!-- (NEXT PART) -->
 
-## **Problem 2**
-* 
+**PART 2: Data Visualization** </br>
+* Visualization of how different features contrbutes to average grade
 
-**Step 1.** Again, we must import the Pandas library first.
+**Step 1.** We must import the matplotlib library first.
 ``` python
-import pandas as np
+# To visualize the data, use matplotlib
+import matplotlib.pyplot as plt
 ```
 </br>
 
-**Step 2.** I loaded the pre-installed file named 'cars.csv' and stored the data to `cars` 
+**Step 2.** I used `plt.bar` to display a bar graph that relates the Track vs. Average. The other syntaxes simply modify how the output looks.
 ``` python
-# Load the csv file in the same folder
-cars = pd.read_csv('cars.csv')
+# Bar Chart for Track and Average
+plt.figure( figsize=(7,5) ) # Size 
+plt.bar( df["Track"], df["Average"], zorder = 2 ) # Creates a bar graph
+plt.grid(True, zorder=0) # Grid behind the graph
+plt.show()
 ```
+
+**Expected Output**: 
+</br></br>
+<img width="589" height="428" alt="image" src="https://github.com/user-attachments/assets/84c48a15-a24d-430c-be2c-4e036fda3b13" />
 </br>
 
-**Step 3.** For Part A, I located the first five rows with odd-numbered columns using `.iloc[]`. The range for rows is index [0:5] and displays only rows 1 to 5. The range for columns is [0:13:2], which is a range of index [0:13] with an increment of 2 to only display the odd-numbered columns.
-``` python
-# a. Locates and displays the first five rows with odd columns
-cars.iloc[ 0:5, 0:13:2 ]
-```
-**Expected Output**: 
-<p align="center">
-  <img src="P2_TableA.png" alt="P2 Table A" width="350">
-</p>
-
-<!--
-| Model               | cyl |  hp |  wt   | vs | gear |
-|---------------------|-----|-----|-------|----|------|
-| Mazda RX4           | 6   | 110 | 2.620 | 0  | 4    |
-| Mazda RX4 Wag       | 6   | 110 | 2.875 | 0  | 4    |
-| Datsun 710          | 4   | 93  | 2.320 | 1  | 4    |
-| Hornet 4 Drive      | 6   | 110 | 3.215 | 1  | 3    |
-| Hornet Sportabout   | 8   | 175 | 3.440 | 0  | 3    |
--->
-
+> [!NOTE]
+> The bar graph shows that examinees from the **microelectronics track** had the highest average.
 </br>
 
-**Step 4.** For Part B, I located the model 'Mazda RX4' using `.loc`. The IF condition in this function is to only locate 'Mazda RX4' in the row 'Model' and display the entire row.
+**Step 3.** I also displayed a bar graph that relates the Gender vs. Average.
 ``` python
-# b. Locates and displays the row that contains the ‘Model’ of ‘Mazda RX4’.
-cars.loc[ cars['Model'] == 'Mazda RX4' ]
+# Bar Chart for Gender and Average
+plt.figure( figsize=(7,5) ) # Size 
+plt.bar( df["Gender"], df["Average"], zorder = 2 ) # Creates a bar graph
+plt.grid(True, zorder=0) # Grid behind the graph
+plt.show()
 ```
+
 **Expected Output**: 
-<p align="center">
-  <img src="P2_TableB.png" alt="P2 Table B" width="450">
-</p>
+</br></br>
+<img width="589" height="428" alt="image" src="https://github.com/user-attachments/assets/052036e9-b42e-4f04-85b2-9fe318b100a3" />
 </br>
 
-**Step 5.** For Part C, I located the model 'Camaro Z28' and column 'cyl' using `.loc`. The IF condition in this function is to only locate 'Camaro Z28' in the row 'Model' and 'cyl' in the columns. I added `.values[0]` to only display the value asked.
+> [!NOTE]
+> The data shows that **female** examinees scored the highest average.
+</br>
+
+**Step 4.** Lastly, I displayed a bar graph that relates the Hometown vs. Average.
 ``` python
-# c. Locates 'Camaro Z28' and 'cyl' and returns the value of 'cyl'
-n = cars.loc[ cars['Model'] == 'Camaro Z28', 'cyl' ].values[0]
-print(n)
-```
-**Expected Output**: 
-```
-8
+# Bar Chart for Hometown and Average
+plt.figure( figsize=(7,5) ) # Size 
+plt.bar( df["Hometown"], df["Average"], zorder = 2 ) # Creates a bar graph
+plt.grid(True, zorder=0) # Grid behind the graph
+plt.show()
 ```
 
-**Step 6.** For Part D, I stored 'Mazda RX4 Wag', 'Ford Pantera L', and 'Honda Civic' and column 'cyl' in the variable `models`. Then, I modified the index to only select 'Model' using `set_index()`. Using `.loc[]`, it will output the rows in 'models' and columns in 'cyl' and 'gear' only.
-``` python
-# d. Locates the models and outputs 'cyl' and 'gear'
-models = ['Mazda RX4 Wag', 'Ford Pantera L', 'Honda Civic'] # Choose elements manually
-MD = cars.set_index("Model")     # Set what column to look at
-MD.loc[models, ["cyl", "gear"]]  # Output selected models and
-```
 **Expected Output**: 
-<p align="center">
-  <img src="P2_TableD.png" alt="P2 Table D" width="200">
-</p>
+</br></br>
+<img width="589" height="428" alt="image" src="https://github.com/user-attachments/assets/4d8bfbaa-d8c7-4b93-b274-9002e0afa120" />
+</br>
+
+> [!NOTE]
+> The data shows that examinees from **Luzon** scored the highest average.
+</br>
 
 </br>
 
